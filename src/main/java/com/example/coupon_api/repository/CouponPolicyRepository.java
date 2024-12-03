@@ -1,4 +1,8 @@
 package com.example.coupon_api.repository;
 
-public class CouponPolicyRepository {
+import com.example.coupon_api.entity.CouponPolicy;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CouponPolicyRepository extends JpaRepository<CouponPolicy, Long> {
+
 }
