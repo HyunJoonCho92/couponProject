@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/coupons")
+@RequestMapping("/api/v1/coupons")
 @RequiredArgsConstructor
 public class CouponPolicyController {
 
@@ -17,7 +17,7 @@ public class CouponPolicyController {
 
     @PostMapping
     public ResponseEntity<CouponPolicy> createPolicy(@RequestBody CouponPolicy policy) {
-        return ResponseEntity.ok(couponPolicyService.createPolicy(policy));
+        return ResponseEntity.ok(couponPolicyService.createPolicy(policy)); // 201로하면 더
     }
 
     @GetMapping
