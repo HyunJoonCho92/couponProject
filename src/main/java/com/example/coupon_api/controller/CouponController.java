@@ -16,8 +16,15 @@ import java.util.List;
 public class CouponController {
     private final CouponService couponService;
 
+    // 실시간 쿠폰 요청
+    // 실시간requestCoupon 메소드
+
+    // 일반 쿠폰 요청
+
     @PostMapping("/request")
     public ResponseEntity<CouponResponseDto> requestCoupon(@RequestBody CouponRequestDto requestDTO) {
+        // 실시간 인지, 일반 쿠폰인지 조건 확인
+
         CouponResponseDto responseDTO = couponService.requestCoupon(requestDTO);
         return ResponseEntity.ok(responseDTO);
 

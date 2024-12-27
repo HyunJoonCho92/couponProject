@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 @Data
 public class Coupon {
 
+    @Version
+    private Long ver;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,4 +28,7 @@ public class Coupon {
 
     @Column(nullable = false)
     private LocalDateTime issuedDate;
+
+    @Column(nullable = false)
+    private CouponType type;
 }

@@ -28,6 +28,9 @@ public class CouponPolicy {
 
     private int issuedAmount; // 발급된 수량
 
+    @Version
+    private Long version;
+
     private String discount; // 할인금액
 
     private int minUsageAmount; // 최소사용금액

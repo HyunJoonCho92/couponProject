@@ -37,12 +37,24 @@ public class CouponService {
             throw new CouponException(CouponErrorCode.COUPON_ALREADY_ISSUED);
         }
 
-        String couponCode = UUID.randomUUID().toString();
+        // 일반 쿠폰 발급 조건 추가
+        if ("GENERAL".equals(policy.getType())) {
+            // 특정 기간 동안 1개씩만 발급
+            LocalDateTime now = LocalDateTime.now();
+            if (couponRepository.existsByUserIdAndCouponPolicyIdAndIssuedDateBetween(
+                    requestDTO.getUserId(), requestDTO.getCouponPolicyId(),
+                    now.withDayOfMonth(1), now.withDayOfMonth(now.toLocalDate().lengthOfMonth()))) {
+                throw new CouponException(CouponErrorCode.COUPON_ALREADY_ISSUED_THIS_PERIOD);
+            }
+        }
+
+        String couponCode = UUID.randomUUID().toString(); // 짧게 만들 수 있는 방법있을까??
         Coupon coupon = new Coupon();
         coupon.setCouponCode(couponCode);
         coupon.setUserId(requestDTO.getUserId());
         coupon.setCouponPolicy(policy);
         coupon.setIssuedDate(LocalDateTime.now());
+        coupon.setType(policy.getType());
         couponRepository.save(coupon);
 
         policy.setIssuedAmount(policy.getIssuedAmount() + 1);
